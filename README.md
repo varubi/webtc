@@ -10,6 +10,6 @@ Web Traffic Controller an HTTP server for Node.js. An easily configurable web se
 # ToDo
 * Better documentation (or documentation to start with...)
 * Option for session data stored to file
-* Ability to direct domains to diffrent folders
+* Ability to direct domains to different folders
 * A whole bunch of code optimizations
 
