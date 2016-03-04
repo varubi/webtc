@@ -1,0 +1,25 @@
+{
+  "UseProxyIPAddress": false,
+  "ClearCache": false,
+  "Basepath": "/var/www",
+  "IndexFileNames": ["index.njs", "default.njs", "index.html", "default.html"],
+  "ExecutableFileExtensions": ["njs"],
+  "SessionDuration": 1200000,
+  "SessionIPLink": false,
+  "MIMETypes": {
+    "js": "application/javascript",
+    "htm": "text/html",
+    "html": "text/html",
+    "njs": "text/html",
+    "css": "text/css"
+  },
+  "ErrorPages": {
+    "400": "400.njs",
+    "401": "401.njs",
+    "403": "403.njs",
+    "404": "404.njs"
+  },
+  "FileRewrites": {
+    "^/somepath$": "/otherpath"
+  }
+}
