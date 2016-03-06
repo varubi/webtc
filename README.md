@@ -41,11 +41,7 @@ webtc.listen(80);
 ####/var/nodejs/webserver/default.njs
 ```javascript
 var counter = 0;
-<<<<<<< HEAD
 //If ClearCache is disabled in the config, the counter increments on every pageview
-=======
-//If ClearCache is disabled in the counter increments on every pageview
->>>>>>> origin/master
 exports.response = function(C) {
   counter++;
   C.Response.Body += '<br /><br />> Sessions<br />'
