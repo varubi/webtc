@@ -52,7 +52,7 @@ webtc.listen(80);
 ```javascript
 var counter = 0;
 //If ClearCache is disabled in the counter increments on every pageview
-exports.inlet = function(C) {
+exports.response = function(C) {
   counter++;
   C.Response.Body += '<br /><br />> Sessions<br />'
   for (var variable in C.Data.Session)
