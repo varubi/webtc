@@ -7,18 +7,11 @@ Web Traffic Controller an HTTP server for Node.js. An easily configurable web se
 * Session data
 * POST and GET data
 * Cookies
-<<<<<<< HEAD
 * Apache DocumentRoot for VirtualHost capabilities. DomainPaths variable
-=======
->>>>>>> origin/master
 
 # ToDo
 * Better documentation (or documentation to start with...)
 * Option for session data stored to file
-<<<<<<< HEAD
-=======
-* Ability to direct domains to different folders
->>>>>>> origin/master
 * A whole bunch of code optimizations
 * File uploads
 
@@ -28,14 +21,11 @@ Web Traffic Controller an HTTP server for Node.js. An easily configurable web se
 var webtc = require('webtc');
 webtc.setConfig({
   'Basepath': __dirname + '/webserver',
-<<<<<<< HEAD
   'DomainPaths':{
     'www.example.com': __dirname + '/webserver/example1',
     'www2.example.com': __dirname + '/webserver/example2',
     'www.example2.com': __dirname + '/webserver/example3',
   },
-=======
->>>>>>> origin/master
   'ClearCache': true,
   'IndexFileNames': ['default.njs', 'index.njs'],
   "MIMETypes": {
