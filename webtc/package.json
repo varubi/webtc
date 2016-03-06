@@ -1,7 +1,7 @@
 {
-  "name": "WebTrafficController",
-  "version": "1.0.0",
-  "description": "HTTP Server",
+  "name": "webtc",
+  "version": "1.0.7",
+  "description": "Web Traffic Controller an HTTP Server for Node.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,5 +14,13 @@
     "Server"
   ],
   "author": "Eduardo Covarrubias <developer@varubi.com>",
-  "license": "ISC"
+  "license": "\tGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varubi/webtc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/varubi/webtc/issues"
+  },
+  "homepage": "https://github.com/varubi/webtc#readme"
 }

@@ -37,31 +37,38 @@ function WebServer() {
   this.SessionManager = new Sessions(Config);
 }
 WebServer.prototype.newResponse = function(request, response) {
-  var R = new Response(request, response);
-  var self = this;
-  R.Config = this.FileManager.Config;
+  try {
+    var R = new Response(request, response);
+    var self = this;
+    R.Config = this.FileManager.Config;
 
-  if (R.Connection.Request.headers['content-type'] == 'application/x-www-form-urlencoded') {
-    R.Connection.Request.on('data', function(data) {
-      R.Connection.Request.Body += data;
-      if (R.Connection.Request.Body.length > 1e6)
-        R.Connection.Request.connection.destroy();
-    });
-    R.Connection.Request.on('end', function() {
-      R.Connection.Data.Post = _QUERYSTRING.parse(R.Connection.Request.Body);
-      runResponse()
-    });
-  } else {
-    runResponse();
-  }
-  function runResponse() {
-    var SessionID = self.SessionManager.validateSession(R.Connection.SessionID, R.Connection.IpAddress);
-    R.Connection.Data.Session = self.SessionManager.Sessions[SessionID].Value
-    R.Connection.SessionID = SessionID
-    R.Connection.Url = self.FileManager.ResolveURL(request.url)
-    self.FileManager.ResolveFile(R.Config.Basepath + R.Connection.Url.pathname, function(ResponseCode, Filepath) {
-      R.accessFile(ResponseCode, Filepath)
-    });
+    if (R.Connection.Request.headers['content-type'] == 'application/x-www-form-urlencoded') {
+      R.Connection.Request.on('data', function(data) {
+        R.Connection.Request.Body += data;
+        if (R.Connection.Request.Body.length > 1e6)
+          R.Connection.Request.connection.destroy();
+      });
+      R.Connection.Request.on('end', function() {
+        R.Connection.Data.Post = _QUERYSTRING.parse(R.Connection.Request.Body);
+        runResponse()
+      });
+    } else {
+      runResponse();
+    }
+    
+    function runResponse() {
+      var SessionID = self.SessionManager.validateSession(R.Connection.SessionID, R.Connection.IpAddress);
+      R.Connection.Data.Session = self.SessionManager.Sessions[SessionID].Value
+      R.Connection.SessionID = SessionID
+      R.Connection.Url = self.FileManager.ResolveURL(request.url)
+      var basepath = self.FileManager.ResolveDomainPath(request.headers.host)
+      self.FileManager.ResolveFile(basepath + R.Connection.Url.pathname, function(ResponseCode, Filepath) {
+        R.accessFile(ResponseCode, Filepath)
+      });
+    }
+  } catch (e) {
+    response.write(e.toString());
+    response.end();
   }
 }
 

@@ -22,7 +22,13 @@ FileManagement.prototype.ResolveURL = function(URL) {
   var parsed = _URL.parse(r, true)
   return parsed;
 }
-
+FileManagement.prototype.ResolveDomainPath = function(domain) {
+  for (var key in this.Config.DomainPaths)
+    if (this.Config.DomainPaths.hasOwnProperty(key))
+      if ((new RegExp(key)).test(domain))
+        return this.Config.DomainPaths[key]
+  return this.Config.Basepath
+}
 
 function FileResolution(FILEMANAGER, BASEPATH, CALLBACK) {
   this.FileManager = FILEMANAGER;

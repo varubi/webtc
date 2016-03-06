@@ -2,6 +2,8 @@
   "UseProxyIPAddress": false,
   "ClearCache": false,
   "Basepath": "/var/www",
+  "DomainPaths":{
+  },
   "IndexFileNames": ["index.njs", "default.njs", "index.html", "default.html"],
   "ExecutableFileExtensions": ["njs"],
   "SessionDuration": 1200000,

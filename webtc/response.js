@@ -64,7 +64,7 @@ Response.prototype.accessFile = function(ResponseCode, Filepath) {
         delete require.cache[require.resolve(FilePath)]
       var x = require(FilePath)
       this.Connection.Request.StopTime = new Date().getTime()
-      x.inlet(this.Connection);
+      x.response(this.Connection);
     } catch (e) {
       this.Connection.Response.Body = e.stack;
       this.write();
@@ -72,11 +72,11 @@ Response.prototype.accessFile = function(ResponseCode, Filepath) {
   } else {
     if (this.Connection.Response.Code != 404) {
       _FS.readFile(Filepath, function(err, data) {
-        self.Connection.Response.Body = data
+        self.Connection.Response.Body += data
         self.write();
       });
     } else {
-      this.Connection.Response.Body = 'File Not Found: ' + FilePath
+      this.Connection.Response.Body += 'File Not Found: ' + FilePath
       this.write();
     }
   }
