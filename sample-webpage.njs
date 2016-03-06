@@ -1,55 +1,3 @@
-# Web Traffic Controller (WEBTC)
-Web Traffic Controller an HTTP server for Node.js. An easily configurable web server.
-
-# Features
-* URL rewriting
-* Cache prevention for development enviroments
-* Session data
-* POST and GET data
-* Cookies
-<<<<<<< HEAD
-* Apache DocumentRoot for VirtualHost capabilities. DomainPaths variable
-=======
->>>>>>> origin/master
-
-# ToDo
-* Better documentation (or documentation to start with...)
-* Option for session data stored to file
-<<<<<<< HEAD
-=======
-* Ability to direct domains to different folders
->>>>>>> origin/master
-* A whole bunch of code optimizations
-* File uploads
-
-#Sample Code
-####/var/nodejs/server.js
-```javascript
-var webtc = require('webtc');
-webtc.setConfig({
-  'Basepath': __dirname + '/webserver',
-<<<<<<< HEAD
-  'DomainPaths':{
-    'www.example.com': __dirname + '/webserver/example1',
-    'www2.example.com': __dirname + '/webserver/example2',
-    'www.example2.com': __dirname + '/webserver/example3',
-  },
-=======
->>>>>>> origin/master
-  'ClearCache': true,
-  'IndexFileNames': ['default.njs', 'index.njs'],
-  "MIMETypes": {
-    "njs": "text/html"
-  },
-  'ExecutableFileExtensions': ['njs'],
-  "FileRewrites": {
-    "^/thispage(?=(.*))$": "/fiddle?fiddle=$1&$2"
-  }
-});
-webtc.listen(80);
-```
-####/var/nodejs/webserver/default.njs
-```javascript
 var counter = 0;
 //If ClearCache is disabled in the counter increments on every pageview
 exports.inlet = function(C) {
@@ -84,5 +32,3 @@ exports.inlet = function(C) {
   C.Response.Body += 'PageCounter = ' +  counter + '<br />'
   C.Response.End();
 }
-
-```
