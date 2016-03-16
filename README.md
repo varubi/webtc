@@ -7,7 +7,7 @@ Web Traffic Controller an HTTP server for Node.js. An easily configurable web se
 * Session data
 * POST and GET data
 * Cookies
-* Apache DocumentRoot for VirtualHost capabilities. DomainPaths variable
+* Domainlevel configuration
 
 # ToDo
 * Better documentation (or documentation to start with...)
