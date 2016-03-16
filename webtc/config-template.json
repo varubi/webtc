@@ -1,0 +1,20 @@
+ {
+   "Basepath": "*directoryPath",
+   "ClearCache": false,
+   "DisplayErrors": false,
+   "ErrorPages": {
+     "*HTMLStatusCode": "*page.html"
+   },
+   "ExecutableFileExtensions": ["*ext"],
+   "FileRewrites": {
+     "*regEx": "*rewrite"
+   },
+   "IndexFileNames": ["*file.ext"],
+   "SessionDuration": 0,
+   "SessionIPLink": false,
+   "UseProxyIPAddress": false,
+   "MIMETypes": {
+     "*ext": "*mimeType"
+   },
+   "OnResponseComplete": "_function"
+ }

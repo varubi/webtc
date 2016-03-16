@@ -2,45 +2,29 @@ var _HTTP = require("http"),
   _FS = require('fs'),
   _URL = require('url'),
   _QUERYSTRING = require('querystring'),
-  Config = require('./config.json'),
+  Configurer = require('./configuration.js'),
   FileSystem = require('./filesystem.js'),
   Sessions = require('./sessions.js'),
   Response = require('./response.js');
-
-exports.setConfig = function(CONFIG, OVERWRITE) {
-  if (OVERWRITE) {
-    for (var property in Config)
-      if (Config.hasOwnProperty(property))
-        if (CONFIG.hasOwnProperty(property))
-          Config[property] = CONFIG[property]
-  } else {
-    for (var property in Config)
-      if (Config.hasOwnProperty(property))
-        if (CONFIG.hasOwnProperty(property)) {
-          if (typeof Config[property] == typeof CONFIG[property] && ['string', 'boolean', 'number'].indexOf(typeof Config[property]) > -1)
-            Config[property] = CONFIG[property]
-          if (typeof Config[property] == 'object') {
-            if (Array.isArray(Config[property]) && Array.isArray(CONFIG[property]))
-              for (var i = 0; i < CONFIG[property].length; i++)
-                if (Config[property].indexOf(CONFIG[property][i]) < 0)
-                  Config[property].push(CONFIG[property][i])
-            if (!Array.isArray(Config[property]) && !Array.isArray(CONFIG[property]))
-              for (var nestedProperty in CONFIG[property])
-                Config[property][nestedProperty] = CONFIG[property][nestedProperty]
-          }
-        }
-  }
+var Configuration = new Configurer();
+exports.setConfig = function(Config, DomainName, TemplateDomainName) {
+  if (typeof DomainName == 'string')
+    Configuration.setDomainConfig(Config, DomainName, TemplateDomainName)
+  else
+    Configuration.setGlobalConfig(Config)
 }
 
+
 function WebServer() {
-  this.FileManager = new FileSystem(Config);
-  this.SessionManager = new Sessions(Config);
+  this.SessionManager = new Sessions(Configuration.GlobalConfig);
 }
 WebServer.prototype.newResponse = function(request, response) {
   try {
+    var Config =  Configuration.getConfig(request.headers.host);
     var R = new Response(request, response);
+    var F = new FileSystem(Config);
     var self = this;
-    R.Config = this.FileManager.Config;
+    R.Config = Config;
 
     if (R.Connection.Request.headers['content-type'] == 'application/x-www-form-urlencoded') {
       R.Connection.Request.on('data', function(data) {
@@ -55,14 +39,12 @@ WebServer.prototype.newResponse = function(request, response) {
     } else {
       runResponse();
     }
-    
     function runResponse() {
       var SessionID = self.SessionManager.validateSession(R.Connection.SessionID, R.Connection.IpAddress);
       R.Connection.Data.Session = self.SessionManager.Sessions[SessionID].Value
       R.Connection.SessionID = SessionID
-      R.Connection.Url = self.FileManager.ResolveURL(request.url)
-      var basepath = self.FileManager.ResolveDomainPath(request.headers.host)
-      self.FileManager.ResolveFile(basepath + R.Connection.Url.pathname, function(ResponseCode, Filepath) {
+      R.Connection.Url = F.ResolveURL(request.url)
+      F.ResolveFile(Config.Basepath + R.Connection.Url.pathname, function(ResponseCode, Filepath) {
         R.accessFile(ResponseCode, Filepath)
       });
     }

@@ -2,12 +2,11 @@
   "UseProxyIPAddress": false,
   "ClearCache": false,
   "Basepath": "/var/www",
-  "DomainPaths":{
-  },
   "IndexFileNames": ["index.njs", "default.njs", "index.html", "default.html"],
   "ExecutableFileExtensions": ["njs"],
   "SessionDuration": 1200000,
   "SessionIPLink": false,
+  "DisplayErrors": false,
   "MIMETypes": {
     "js": "application/javascript",
     "htm": "text/html",
@@ -20,8 +19,5 @@
     "401": "401.njs",
     "403": "403.njs",
     "404": "404.njs"
-  },
-  "FileRewrites": {
-    "^/somepath$": "/otherpath"
   }
 }

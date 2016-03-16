@@ -21,21 +21,19 @@ Web Traffic Controller an HTTP server for Node.js. An easily configurable web se
 var webtc = require('webtc');
 webtc.setConfig({
   'Basepath': __dirname + '/webserver',
-  'DomainPaths':{
-    'www.example.com': __dirname + '/webserver/example1',
-    'www2.example.com': __dirname + '/webserver/example2',
-    'www.example2.com': __dirname + '/webserver/example3',
-  },
   'ClearCache': true,
   'IndexFileNames': ['default.njs', 'index.njs'],
   "MIMETypes": {
     "njs": "text/html"
   },
-  'ExecutableFileExtensions': ['njs'],
-  "FileRewrites": {
-    "^/thispage(?=(.*))$": "/fiddle?fiddle=$1&$2"
-  }
+  'ExecutableFileExtensions': ['njs']
 });
+webtc.setConfig({
+  'Basepath': __dirname + '/webserver/example1',
+  'FileRewrites': {
+    "^/(?!this/)([^?/]*)[?]?([^?/]*)$": "/that/index.njs?q=$1&$2"
+  }
+}, 'www.example1.com');
 webtc.listen(80);
 ```
 ####/var/nodejs/webserver/default.njs
@@ -68,6 +66,4 @@ var print_Obj = function(obj) {
       string += variable + ' = ' + obj[variable] + '<br />';
   return string;
 }
-
-
 ```

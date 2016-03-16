@@ -88,6 +88,10 @@ Response.prototype.write = function() {
     // this._RESPONSE.setHeader('Set-Cookie', this.CookieManager.buildHeader())
   this._RESPONSE.writeHead(this.Connection.Response.Code, this.Connection.Response.Headers)
   this._RESPONSE.write(this.Connection.Response.Body, this.Connection.Response.Encoding);
+  if (typeof this.Config.OnResponseComplete == 'function')
+    this.Config.OnResponseComplete(this)
+
+
   this._RESPONSE.end();
 }
 
