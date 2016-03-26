@@ -59,7 +59,7 @@ Response.prototype.accessFile = function(ResponseCode, Filepath) {
     this.Connection.Response.Headers['Content-Type'] = this.Config.MIMETypes[ext]
 
   if (this.Connection.Response.Code == 200) {
-    if (this.Config.ExecutableFileExtensions.indexOf(ext) > -1) {
+    if (this.Config.DynamicFileExtensions.indexOf(ext) > -1) {
       try {
         if (this.Config.ClearCache)
           delete require.cache[require.resolve(FilePath)]

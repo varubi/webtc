@@ -3,6 +3,7 @@ Web Traffic Controller an HTTP server for Node.js. An easily configurable web se
 
 # Features
 * URL rewriting
+* Dynamic Pages
 * Cache prevention for development enviroments
 * Session data
 * POST and GET data
