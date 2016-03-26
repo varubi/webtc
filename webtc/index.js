@@ -1,13 +1,18 @@
-var _HTTP = require("http"),
+var https_server = false,
+  _HTTP = require("http"),
+  _HTTPS = require('https'),
   _FS = require('fs'),
   _URL = require('url'),
   _QUERYSTRING = require('querystring'),
   Configurer = require('./configuration.js'),
   FileSystem = require('./filesystem.js'),
   Sessions = require('./sessions.js'),
-  Response = require('./response.js');
-var Configuration = new Configurer();
-exports.setConfig = function(Config, DomainName, TemplateDomainName) {
+  Response = require('./response.js'),
+  Configuration = new Configurer();
+exports.setServerConfig = function(Config) {
+  Configuration.setServerConfig(Config);
+}
+exports.setDomainConfig = function(Config, DomainName, TemplateDomainName) {
   if (typeof DomainName == 'string')
     Configuration.setDomainConfig(Config, DomainName, TemplateDomainName)
   else
@@ -16,11 +21,12 @@ exports.setConfig = function(Config, DomainName, TemplateDomainName) {
 
 
 function WebServer() {
-  this.SessionManager = new Sessions(Configuration.GlobalConfig);
+  this.SessionManager = new Sessions(Configuration.ServerConfig.Session);
 }
 WebServer.prototype.newResponse = function(request, response) {
   try {
-    var Config =  Configuration.getConfig(request.headers.host);
+    if (Configuration.ServerConfig.Protocols)
+      var Config = Configuration.getConfig(request.headers.host);
     var R = new Response(request, response);
     var F = new FileSystem(Config);
     var self = this;
@@ -39,6 +45,7 @@ WebServer.prototype.newResponse = function(request, response) {
     } else {
       runResponse();
     }
+
     function runResponse() {
       var SessionID = self.SessionManager.validateSession(R.Connection.SessionID, R.Connection.IpAddress);
       R.Connection.Data.Session = self.SessionManager.Sessions[SessionID].Value
@@ -54,10 +61,27 @@ WebServer.prototype.newResponse = function(request, response) {
   }
 }
 
-exports.listen = function(PORT) {
-  var Server = new WebServer();
-  _HTTP.createServer(function(request, response) {
-    request.StartTime = new Date().getTime()
-    Server.newResponse(request, response);
-  }).listen(PORT);
+exports.start = function() {
+  if (Configuration.ServerConfig.Protocols.HTTP.Port) {
+    HTTPServer = new WebServer();
+    _HTTP.createServer(function(request, response) {
+      request.StartTime = new Date().getTime()
+      HTTPServer.newResponse(request, response);
+    }).listen(Configuration.ServerConfig.Protocols.HTTP.Port);
+  }
+  var httpsOptions;
+  if (Configuration.ServerConfig.Protocols.HTTPS.Key && Configuration.ServerConfig.Protocols.HTTPS.Certificate)
+    httpsOptions = {
+      key: fs.readFileSync(Configuration.ServerConfig.Protocols.HTTPS.Key),
+      cert: fs.readFileSync(Configuration.ServerConfig.Protocols.HTTPS.Certificate)
+    }
+
+  if (Configuration.ServerConfig.Protocols.HTTPS.Port && httpsOptions) {
+    https_server = true
+    HTTPSServer = new WebServer();
+    _HTTPS.createServer(httpsOptions, function(request, response) {
+      request.StartTime = new Date().getTime()
+      HTTPSServer.newResponse(request, response);
+    }).listen(Configuration.ServerConfig.Protocols.HTTPS.Port);
+  }
 }

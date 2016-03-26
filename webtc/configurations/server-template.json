@@ -1,0 +1,21 @@
+{
+  "UseProxyIPAddress": false,
+  "Session": {
+    "Duration": 0,
+    "IPLink": false
+  },
+  "Protocols": {
+    "HTTP": {
+      "Port": 0,
+      "AutoUpgrade": false
+    },
+    "HTTPS": {
+      "Port": 0,
+      "Key": "_file",
+      "Certificate": "_file"
+    }
+  },
+  "EventListeners": {
+    "OnIncomingRequest": "_function"
+  }
+}

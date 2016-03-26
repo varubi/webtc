@@ -1,20 +1,20 @@
  {
-   "Basepath": "*directoryPath",
+   "Basepath": "_directorypath",
    "ClearCache": false,
    "DisplayErrors": false,
    "ErrorPages": {
      "*HTMLStatusCode": "*page.html"
    },
-   "ExecutableFileExtensions": ["*ext"],
+   "DynamicFileExtensions": ["*ext"],
    "FileRewrites": {
      "*regEx": "*rewrite"
    },
    "IndexFileNames": ["*file.ext"],
-   "SessionDuration": 0,
-   "SessionIPLink": false,
-   "UseProxyIPAddress": false,
    "MIMETypes": {
      "*ext": "*mimeType"
    },
-   "OnResponseComplete": "_function"
+   "EventListeners": {
+     "OnResponseStart": "_function",
+     "OnResponseEnd": "_function"
+   }
  }

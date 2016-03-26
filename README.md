@@ -7,7 +7,7 @@ Web Traffic Controller an HTTP server for Node.js. An easily configurable web se
 * Session data
 * POST and GET data
 * Cookies
-* Domainlevel configuration
+* Domain level configuration
 
 # ToDo
 * Better documentation (or documentation to start with...)
@@ -19,22 +19,22 @@ Web Traffic Controller an HTTP server for Node.js. An easily configurable web se
 ####/var/nodejs/server.js
 ```javascript
 var webtc = require('webtc');
-webtc.setConfig({
+webtc.setDomainConfig({
   'Basepath': __dirname + '/webserver',
   'ClearCache': true,
   'IndexFileNames': ['default.njs', 'index.njs'],
   "MIMETypes": {
     "njs": "text/html"
   },
-  'ExecutableFileExtensions': ['njs']
+  'DynamicFileExtensions': ['njs']
 });
-webtc.setConfig({
-  'Basepath': __dirname + '/webserver/example1',
+webtc.setDomainConfig({
+  'Basepath': __dirname + '/webserver/example',
   'FileRewrites': {
-    "^/(?!this/)([^?/]*)[?]?([^?/]*)$": "/that/index.njs?q=$1&$2"
+    "^/this/": "/that/index.njs"
   }
-}, 'www.example1.com');
-webtc.listen(80);
+}, 'www.example.com');
+webtc.start();
 ```
 ####/var/nodejs/webserver/default.njs
 ```javascript

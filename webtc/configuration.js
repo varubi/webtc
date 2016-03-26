@@ -1,24 +1,26 @@
-CONFIG_DEFAULTS = require('./config-defaults.json'),
-  CONFIG_TEMPLATE = require('./config-template.json')
+var _FS = require('fs'),
+  CONFIG_SITE_TEMPLATE = require('./configurations/site-template.json'),
+  CONFIG_SITE_DEFAULTS = require('./configurations/site-defaults.json'),
+  CONFIG_SERVER_TEMPLATE = require('./configurations/server-template.json'),
+  CONFIG_SERVER_DEFAULTS = require('./configurations/server-defaults.json')
 
 function Configuration() {
-  this.GlobalConfig = CONFIG_DEFAULTS;
+  this.ServerConfig = CONFIG_SERVER_DEFAULTS;
+  this.GlobalConfig = CONFIG_SITE_DEFAULTS;
   this.DomainConfig = [];
 }
+Configuration.prototype.setServerConfig = function(Config) {
+  this.ServerConfig = this.merge(CONFIG_SERVER_TEMPLATE, this.ServerConfig, Config)
+}
 Configuration.prototype.setGlobalConfig = function(Config) {
-  this.GlobalConfig = this.merge(this.GlobalConfig, Config)
+  this.GlobalConfig = this.merge(CONFIG_SITE_TEMPLATE, this.GlobalConfig, Config)
 }
 Configuration.prototype.setDomainConfig = function(Config, DomainName, TemplateDomainName) {
-  var i = this.getDomainConfigIndex(DomainName)
-  var i2 = this.getDomainConfigIndex(TemplateDomainName)
-  var templateConfig
-  if (i === null)
-    i = this.DomainConfig.length
-  if (i2 === null)
-    templateConfig = this.GlobalConfig
-  else
-    templateConfig = this.DomainConfig[i2]
-  this.DomainConfig[i] = this.merge(templateConfig, Config)
+  var i = this.getDomainConfigIndex(DomainName) || this.DomainConfig.length
+
+  var templateConfig = this.DomainConfig[this.getDomainConfigIndex(TemplateDomainName)] || this.GlobalConfig
+
+  this.DomainConfig[i] = this.merge(CONFIG_SITE_TEMPLATE, templateConfig, Config)
   this.DomainConfig[i].DomainValidator = DomainName
 }
 Configuration.prototype.getConfig = function(DomainName) {
@@ -27,8 +29,8 @@ Configuration.prototype.getConfig = function(DomainName) {
       return this.DomainConfig[i]
   return this.GlobalConfig
 }
-Configuration.prototype.merge = function(Config1, Config2) {
-  return this.mergeMethods.object(CONFIG_TEMPLATE, Config1, Config2)
+Configuration.prototype.merge = function(Template, Config1, Config2) {
+  return this.mergeMethods.object(Template, Config1, Config2)
 }
 Configuration.prototype.getDomainConfigIndex = function(DomainName) {
   if (typeof DomainName === 'string')
@@ -98,6 +100,20 @@ Configuration.prototype.mergeMethods = {
   },
   'function': function(template, function1, function2) {
     return this.returnMatch(template, function1, function2)
+  },
+  'filepath': function(template, path1, path2) {
+    if (_FS.statSync(path2).isFile())
+      return path2
+    if (_FS.statSync(path1).isFile())
+      return path1
+    return null
+  },
+  'directorypath': function(template, path1, path2) {
+    if (_FS.statSync(path2).isDirectory())
+      return path2
+    if (_FS.statSync(path1).isDirectory())
+      return path1
+    return null
   },
   'returnMatch': function(template, variable1, variable2) {
     if (this.getTemplateType(template) == this.getType(variable2))

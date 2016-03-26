@@ -1,11 +1,8 @@
 {
-  "UseProxyIPAddress": false,
   "ClearCache": false,
   "Basepath": "/var/www",
-  "IndexFileNames": ["index.njs", "default.njs", "index.html", "default.html"],
-  "ExecutableFileExtensions": ["njs"],
-  "SessionDuration": 1200000,
-  "SessionIPLink": false,
+  "IndexFileNames": ["index.njs", "index.html"],
+  "DynamicFileExtensions": ["njs"],
   "DisplayErrors": false,
   "MIMETypes": {
     "js": "application/javascript",

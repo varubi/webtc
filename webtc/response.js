@@ -58,24 +58,27 @@ Response.prototype.accessFile = function(ResponseCode, Filepath) {
   if (this.Config.MIMETypes.hasOwnProperty(ext))
     this.Connection.Response.Headers['Content-Type'] = this.Config.MIMETypes[ext]
 
-  if (this.Config.ExecutableFileExtensions.indexOf(ext) > -1) {
-    try {
-      if (this.Config.ClearCache)
-        delete require.cache[require.resolve(FilePath)]
-      var x = require(FilePath)
-      this.Connection.Request.StopTime = new Date().getTime()
-      x.response(this.Connection);
-    } catch (e) {
-      this.Connection.Response.Body = e.stack;
-      this.write();
-    }
-  } else {
-    if (this.Connection.Response.Code != 404) {
+  if (this.Connection.Response.Code == 200) {
+    if (this.Config.ExecutableFileExtensions.indexOf(ext) > -1) {
+      try {
+        if (this.Config.ClearCache)
+          delete require.cache[require.resolve(FilePath)]
+        var x = require(FilePath)
+        this.Connection.Request.StopTime = new Date().getTime()
+        x.response(this.Connection);
+      } catch (e) {
+        if (this.Config.DisplayErrors)
+          this.Connection.Response.Body = e.stack;
+        this.write();
+      }
+    } else {
       _FS.readFile(Filepath, function(err, data) {
         self.Connection.Response.Body += data
         self.write();
       });
-    } else {
+    }
+  } else {
+    if (this.Connection.Response.Code == 404) {
       this.Connection.Response.Body += 'File Not Found: ' + FilePath
       this.write();
     }

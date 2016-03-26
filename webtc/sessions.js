@@ -35,12 +35,12 @@ SessionManagement.prototype.createNewSession = function(IPAddress) {
   BufferAry.splice(13, 0, '-');
   r = BufferAry.join("");
   this.Sessions[r] = new Session();
-  this.Sessions[r].Duration = this.Config.SessionDuration;
+  this.Sessions[r].Duration = this.Config.Duration;
   this.Sessions[r].IPAddress = IPAddress;
   return r;
 }
 SessionManagement.prototype.validateSession = function(SessionID, IPAddress) {
-  if (/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/.test(SessionID) && this.Sessions.hasOwnProperty(SessionID) && (!this.Config.SessionIPLink || this.Sessions[SessionID].IPAddress == IPAddress)) {
+  if (/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/.test(SessionID) && this.Sessions.hasOwnProperty(SessionID) && (!this.Config.IPLink || this.Sessions[SessionID].IPAddress == IPAddress)) {
     this.Sessions[SessionID].resetExpiration()
     return SessionID;
   }

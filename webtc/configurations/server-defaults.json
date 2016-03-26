@@ -1,0 +1,16 @@
+{
+  "Session": {
+    "Duration": 1200000,
+    "IPLink": false
+  },
+  "Protocols": {
+    "HTTP": {
+      "Port": 80,
+      "AutoUpgrade": true
+    },
+    "HTTPS": {
+      "Port": 443
+    }
+  },
+  "UseProxyIPAddress": false
+}
