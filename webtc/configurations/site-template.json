@@ -6,9 +6,13 @@
      "*HTMLStatusCode": "*page.html"
    },
    "DynamicFileExtensions": ["*ext"],
-   "FileRewrites": {
-     "*regEx": "*rewrite"
-   },
+   "URLRewrites": [
+     {
+       "Filter": "_regex",
+       "Match": "_regex",
+       "Replace": "*regex"
+     }
+   ],
    "IndexFileNames": ["*file.ext"],
    "MIMETypes": {
      "*ext": "*mimeType"

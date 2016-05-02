@@ -2,22 +2,23 @@
 Web Traffic Controller an HTTP server for Node.js. An easily configurable web server.
 
 # Features
-* URL rewriting
-* Dynamic Pages
-* Cache prevention for development enviroments
-* Session data
-* POST and GET data
-* Cookies
-* Domain level configuration
+- URL rewriting
+- Dynamic Pages
+- Cache prevention for development enviroments
+- Session data
+- POST and GET data
+- Cookies
+- Domain level configuration
 
 # ToDo
-* Better documentation (or documentation to start with...)
-* Option for session data stored to file
-* A whole bunch of code optimizations
-* File uploads
+- Better documentation (or documentation to start with...)
+- Option for session data stored to file
+- A whole bunch of code optimizations
+- File uploads
 
-#Sample Code
-####/var/nodejs/server.js
+# Sample Code
+## /var/nodejs/server.js
+
 ```javascript
 var webtc = require('webtc');
 webtc.setDomainConfig({
@@ -31,13 +32,17 @@ webtc.setDomainConfig({
 });
 webtc.setDomainConfig({
   'Basepath': __dirname + '/webserver/example',
-  'FileRewrites': {
-    "^/this/": "/that/index.njs"
-  }
+  'URLRewrites': [{
+    'Filter': /only-match-urls-that-look-like-this/,
+    'Match': /replace-this-part-of-the-url/,
+    'Replace': "with-this-string"
+  }]
 }, 'www.example.com');
 webtc.start();
 ```
-####/var/nodejs/webserver/default.njs
+
+## /var/nodejs/webserver/default.njs
+
 ```javascript
 var counter = 0;
 //If ClearCache is disabled in the config, the counter increments on every pageview
