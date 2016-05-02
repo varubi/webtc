@@ -10,8 +10,10 @@ webtc.setDomainConfig({
 });
 webtc.setDomainConfig({
   'Basepath': __dirname + '/webserver/example',
-  'FileRewrites': {
-    "^/this/": "/that/index.njs"
-  }
+  'URLRewrites': [{
+    'Filter': /only-match-urls-that-look-like-this/,
+    'Match': /replace-this-part-of-the-url/,
+    'Replace': "with-this-string"
+  }]
 }, 'www.example.com');
 webtc.start();
