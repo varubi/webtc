@@ -102,17 +102,21 @@ Configuration.prototype.mergeMethods = {
         return this.returnMatch(template, function1, function2)
     },
     'filepath': function(template, path1, path2) {
-        if (_FS.statSync(path2).isFile())
-            return path2
-        if (_FS.statSync(path1).isFile())
-            return path1
+        if (this.getType(path2) == 'string')
+            if (_FS.statSync(path2).isFile())
+                return path2
+        if (this.getType(path1) == 'string')
+            if (_FS.statSync(path1).isFile())
+                return path1
         return null
     },
     'directorypath': function(template, path1, path2) {
-        if (_FS.statSync(path2).isDirectory())
-            return path2
-        if (_FS.statSync(path1).isDirectory())
-            return path1
+        if (this.getType(path2) == 'string')
+            if (_FS.statSync(path2).isDirectory())
+                return path2
+        if (this.getType(path1) == 'string')
+            if (_FS.statSync(path1).isDirectory())
+                return path1
         return null
     },
     'regex': function(template, regex1, regex2) {

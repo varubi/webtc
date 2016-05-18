@@ -1,24 +1,85 @@
  {
-   "Basepath": "_directorypath",
-   "ClearCache": false,
-   "DisplayErrors": false,
-   "ErrorPages": {
-     "*HTMLStatusCode": "*page.html"
-   },
-   "DynamicFileExtensions": ["*ext"],
-   "URLRewrites": [
-     {
-       "Filter": "_regex",
-       "Match": "_regex",
-       "Replace": "*regex"
+     "Basepath": "_directorypath",
+     "ClearCache": false,
+     "DisplayErrors": false,
+     "ErrorPages": {
+         "100": "_filepath",
+         "101": "_filepath",
+         "102": "_filepath",
+         "200": "_filepath",
+         "201": "_filepath",
+         "202": "_filepath",
+         "203": "_filepath",
+         "204": "_filepath",
+         "205": "_filepath",
+         "206": "_filepath",
+         "207": "_filepath",
+         "208": "_filepath",
+         "226": "_filepath",
+         "300": "_filepath",
+         "301": "_filepath",
+         "302": "_filepath",
+         "303": "_filepath",
+         "304": "_filepath",
+         "305": "_filepath",
+         "306": "_filepath",
+         "307": "_filepath",
+         "308": "_filepath",
+         "400": "_filepath",
+         "401": "_filepath",
+         "402": "_filepath",
+         "403": "_filepath",
+         "404": "_filepath",
+         "405": "_filepath",
+         "406": "_filepath",
+         "407": "_filepath",
+         "408": "_filepath",
+         "409": "_filepath",
+         "410": "_filepath",
+         "411": "_filepath",
+         "412": "_filepath",
+         "413": "_filepath",
+         "414": "_filepath",
+         "415": "_filepath",
+         "416": "_filepath",
+         "417": "_filepath",
+         "421": "_filepath",
+         "422": "_filepath",
+         "423": "_filepath",
+         "424": "_filepath",
+         "425": "_filepath",
+         "426": "_filepath",
+         "427": "_filepath",
+         "428": "_filepath",
+         "429": "_filepath",
+         "430": "_filepath",
+         "431": "_filepath",
+         "451": "_filepath",
+         "500": "_filepath",
+         "501": "_filepath",
+         "502": "_filepath",
+         "503": "_filepath",
+         "504": "_filepath",
+         "505": "_filepath",
+         "506": "_filepath",
+         "507": "_filepath",
+         "508": "_filepath",
+         "509": "_filepath",
+         "510": "_filepath",
+         "511": "_filepath"
+     },
+     "DynamicFileExtensions": ["*ext"],
+     "URLRewrites": [{
+         "Filter": "_regex",
+         "Match": "_regex",
+         "Replace": "*regex"
+     }],
+     "IndexFileNames": ["*file.ext"],
+     "MIMETypes": {
+         "*ext": "*mimeType"
+     },
+     "EventListeners": {
+         "OnResponseStart": "_function",
+         "OnResponseEnd": "_function"
      }
-   ],
-   "IndexFileNames": ["*file.ext"],
-   "MIMETypes": {
-     "*ext": "*mimeType"
-   },
-   "EventListeners": {
-     "OnResponseStart": "_function",
-     "OnResponseEnd": "_function"
-   }
  }
