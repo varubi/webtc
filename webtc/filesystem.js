@@ -14,11 +14,12 @@ FileManagement.prototype.ResolveFile = function(BASEPATH, CALLBACK) {
 FileManagement.prototype.ResolveURL = function(URL) {
     var self = this;
     var r = URL;
-    for (var i = 0; i < this.Config.URLRewrites.length; i++)
-        if ((this.Config.URLRewrites[i].Filter || this.Config.URLRewrites[i].Match).test(URL)) {
-            r = URL.replace(this.Config.URLRewrites[i].Match, this.Config.URLRewrites[i].Replace);
-            break;
-        }
+    if (this.Config.URLRewrites)
+        for (var i = 0; i < this.Config.URLRewrites.length; i++)
+            if ((this.Config.URLRewrites[i].Filter || this.Config.URLRewrites[i].Match).test(URL)) {
+                r = URL.replace(this.Config.URLRewrites[i].Match, this.Config.URLRewrites[i].Replace);
+                break;
+            }
     var parsed = _URL.parse(r, true)
     return parsed;
 }

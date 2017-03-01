@@ -1,16 +1,18 @@
 {
-  "ClearCache": false,
-  "Basepath": "/var/www",
-  "IndexFileNames": ["index.njs", "index.html"],
-  "DynamicFileExtensions": ["njs"],
-  "DisplayErrors": false,
-  "MIMETypes": {
-    "js": "application/javascript",
-    "htm": "text/html",
-    "html": "text/html",
-    "njs": "text/html",
-    "css": "text/css"
-  },
-  "ErrorPages": {
-  }
+    "ClearCache": false,
+    "Basepath": "/var/www",
+    "IndexFileNames": ["index.njs", "index.html"],
+    "DynamicFileExtensions": ["njs"],
+    "DisplayErrors": false,
+    "PageEntryFunctionName": "response",
+    "DataBox": {},
+    "MIMETypes": {
+        "js": "application/javascript",
+        "htm": "text/html",
+        "html": "text/html",
+        "png": "image/png",
+        "css": "text/css",
+        "njs": "text/html"
+    },
+    "ErrorPages": {}
 }

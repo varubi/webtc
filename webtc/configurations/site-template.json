@@ -2,6 +2,7 @@
      "Basepath": "_directorypath",
      "ClearCache": false,
      "DisplayErrors": false,
+     "PageEntryFunctionName":"string",
      "ErrorPages": {
          "100": "_filepath",
          "101": "_filepath",
@@ -69,6 +70,7 @@
          "511": "_filepath"
      },
      "DynamicFileExtensions": ["*ext"],
+     "DataBox": "_freeobject",
      "URLRewrites": [{
          "Filter": "_regex",
          "Match": "_regex",

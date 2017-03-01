@@ -89,6 +89,9 @@ Configuration.prototype.mergeMethods = {
             return null
         return r
     },
+    'freeobject': function(template, obj1, obj2) {
+        return this.returnMatch({}, obj1, obj2)
+    },
     'string': function(template, string1, string2) {
         return this.returnMatch(template, string1, string2)
     },

@@ -1,21 +1,22 @@
 {
-  "UseProxyIPAddress": false,
-  "Session": {
-    "Duration": 0,
-    "IPLink": false
-  },
-  "Protocols": {
-    "HTTP": {
-      "Port": 0,
-      "AutoUpgrade": false
+    "UseProxyIPAddress": false,
+    "DataBox": "_freeobject",
+    "Session": {
+        "Duration": 0,
+        "IPLink": false
     },
-    "HTTPS": {
-      "Port": 0,
-      "Key": "_file",
-      "Certificate": "_file"
+    "Protocols": {
+        "HTTP": {
+            "Port": 0,
+            "AutoUpgrade": false
+        },
+        "HTTPS": {
+            "Port": 0,
+            "Key": "_filepath",
+            "Certificate": "_filepath"
+        }
+    },
+    "EventListeners": {
+        "OnIncomingRequest": "_function"
     }
-  },
-  "EventListeners": {
-    "OnIncomingRequest": "_function"
-  }
 }

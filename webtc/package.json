@@ -1,6 +1,6 @@
 {
   "name": "webtc",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Web Traffic Controller an HTTP Server for Node.js",
   "main": "index.js",
   "scripts": {
